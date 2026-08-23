@@ -1,0 +1,14 @@
+/* V8XX Xbox One GamepadViewer Skin */
+/* Replace image URLs with your hosted PNG layer URLs */
+
+.controller {
+  background-image: url("controller.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.button.pressed,
+.stick.active,
+.trigger.active {
+  filter: drop-shadow(0 0 12px #00aaff);
+}
