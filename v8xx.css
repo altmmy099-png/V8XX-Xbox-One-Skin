@@ -1,6 +1,6 @@
 /* =========================================
-   V8XX Xbox One Skin
-   Autonomous Wave Animation
+   V8XX XBOX ONE
+   CONTROLLER-ONLY ENERGY WAVE
    ========================================= */
 
 #gamepad-0 {
@@ -9,7 +9,10 @@
     height: 760px;
 }
 
-/* Controller artwork */
+/* =========================================
+   CONTROLLER IMAGE
+   ========================================= */
+
 #gamepad-0::before {
     content: "";
     position: absolute;
@@ -17,23 +20,18 @@
 
     background-image: url("./v8xx-controller.png");
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center;
     background-size: contain;
 
     z-index: 1;
     pointer-events: none;
 
-    filter:
-        drop-shadow(0 0 6px rgba(0, 120, 255, 0.8))
-        drop-shadow(0 0 18px rgba(0, 80, 255, 0.5));
+    animation: v8xx-glow 2.5s ease-in-out infinite;
 }
 
 
 /* =========================================
-   AUTONOMOUS V8XX ENERGY WAVE
-   No .pressed
-   No :active
-   No controller input
+   CONTROLLER-ONLY WAVE
    ========================================= */
 
 #gamepad-0::after {
@@ -48,27 +46,23 @@
         linear-gradient(
             110deg,
             transparent 0%,
-            transparent 30%,
-
-            rgba(0, 90, 255, 0) 38%,
-
-            rgba(0, 130, 255, 0.25) 43%,
-
-            rgba(40, 190, 255, 0.95) 48%,
-
-            rgba(0, 110, 255, 0.35) 53%,
-
-            rgba(0, 50, 255, 0) 60%,
-
-            transparent 68%
+            transparent 35%,
+            rgba(0, 100, 255, 0) 40%,
+            rgba(0, 170, 255, 0.35) 44%,
+            rgba(50, 200, 255, 1) 48%,
+            rgba(0, 130, 255, 0.4) 52%,
+            rgba(0, 80, 255, 0) 57%,
+            transparent 63%
         );
 
     background-size: 300% 300%;
     background-position: 140% 50%;
 
-    /*
-       Keeps the energy inside the controller artwork.
+    /* IMPORTANT:
+       This clips the wave to the
+       actual controller PNG.
     */
+
     -webkit-mask-image: url("./v8xx-controller.png");
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -82,7 +76,7 @@
     mix-blend-mode: screen;
 
     filter:
-        blur(0.5px)
+        blur(0.7px)
         drop-shadow(0 0 8px rgba(0, 150, 255, 1));
 
     animation:
@@ -92,7 +86,7 @@
 
 
 /* =========================================
-   WAVE MOVEMENT
+   WAVE MOVES ACROSS CONTROLLER
    ========================================= */
 
 @keyframes v8xx-wave {
@@ -104,12 +98,11 @@
     100% {
         background-position: -40% 50%;
     }
-
 }
 
 
 /* =========================================
-   CONTINUOUS ENERGY PULSE
+   ENERGY PULSE
    ========================================= */
 
 @keyframes v8xx-pulse {
@@ -133,7 +126,6 @@
     100% {
         opacity: 0.25;
     }
-
 }
 
 
@@ -141,11 +133,7 @@
    CONTROLLER GLOW
    ========================================= */
 
-#gamepad-0::before {
-    animation: v8xx-controller-glow 2.5s ease-in-out infinite;
-}
-
-@keyframes v8xx-controller-glow {
+@keyframes v8xx-glow {
 
     0% {
         filter:
@@ -164,12 +152,11 @@
             drop-shadow(0 0 5px rgba(0, 100, 255, 0.6))
             drop-shadow(0 0 14px rgba(0, 80, 255, 0.3));
     }
-
 }
 
 
 /* =========================================
-   KEEP GAMEPADVIEWER CONTROLS FUNCTIONAL
+   KEEP GAMEPADVIEWER INPUT WORKING
    ========================================= */
 
 #gamepad-0 > * {
