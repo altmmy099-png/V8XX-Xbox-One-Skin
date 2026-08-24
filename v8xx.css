@@ -4,12 +4,12 @@
     opacity: 1 !important;
 }
 
-/* Controller body */
+/* Controller body glow */
 .controller {
     filter: drop-shadow(0 0 12px #008cff) !important;
 }
 
-/* Button glow */
+/* Buttons */
 .button.pressed {
     filter: drop-shadow(0 0 20px #00aaff) !important;
 }
@@ -19,7 +19,7 @@
     filter: drop-shadow(0 0 20px #00aaff) !important;
 }
 
-/* Sticks */
+/* Analog sticks */
 .stick.pressed {
     filter: drop-shadow(0 0 20px #00aaff) !important;
 }
