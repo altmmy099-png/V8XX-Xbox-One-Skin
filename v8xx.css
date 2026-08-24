@@ -1,165 +1,170 @@
-/* =========================================
-   V8XX XBOX ONE
-   CONTROLLER-ONLY ENERGY WAVE
-   ========================================= */
+/* ================================
+   V8XX CONTROLLER
+   Centered + Internal Wave Effect
+   ================================ */
 
-#gamepad-0 {
-    position: relative;
-    width: 1200px;
-    height: 760px;
+* {
+  box-sizing: border-box;
 }
 
-/* =========================================
-   CONTROLLER IMAGE
-   ========================================= */
-
-#gamepad-0::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background-image: url("./v8xx-controller.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-
-    z-index: 1;
-    pointer-events: none;
-
-    animation: v8xx-glow 2.5s ease-in-out infinite;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  background: #050505;
+  overflow: hidden;
 
-/* =========================================
-   CONTROLLER-ONLY WAVE
-   ========================================= */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-#gamepad-0::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    z-index: 5;
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            110deg,
-            transparent 0%,
-            transparent 35%,
-            rgba(0, 100, 255, 0) 40%,
-            rgba(0, 170, 255, 0.35) 44%,
-            rgba(50, 200, 255, 1) 48%,
-            rgba(0, 130, 255, 0.4) 52%,
-            rgba(0, 80, 255, 0) 57%,
-            transparent 63%
-        );
-
-    background-size: 300% 300%;
-    background-position: 140% 50%;
-
-    /* IMPORTANT:
-       This clips the wave to the
-       actual controller PNG.
-    */
-
-    -webkit-mask-image: url("./v8xx-controller.png");
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    -webkit-mask-size: contain;
-
-    mask-image: url("./v8xx-controller.png");
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: contain;
-
-    mix-blend-mode: screen;
-
-    filter:
-        blur(0.7px)
-        drop-shadow(0 0 8px rgba(0, 150, 255, 1));
-
-    animation:
-        v8xx-wave 3s linear infinite,
-        v8xx-pulse 1.8s ease-in-out infinite;
+  font-family: Arial, sans-serif;
 }
 
+/* ================================
+   CONTROLLER CONTAINER
+   ================================ */
 
-/* =========================================
-   WAVE MOVES ACROSS CONTROLLER
-   ========================================= */
+#controller,
+.controller {
+  position: relative;
 
-@keyframes v8xx-wave {
+  width: min(850px, 90vw);
+  height: min(520px, 75vh);
 
-    0% {
-        background-position: 140% 50%;
-    }
+  margin: 0 auto;
 
-    100% {
-        background-position: -40% 50%;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  transform: none;
 }
 
+/* ================================
+   CONTROLLER IMAGE / SVG
+   ================================ */
 
-/* =========================================
-   ENERGY PULSE
-   ========================================= */
+#controller svg,
+.controller svg,
+#controller img,
+.controller img {
+  position: relative;
 
-@keyframes v8xx-pulse {
+  width: 100%;
+  height: 100%;
 
-    0% {
-        opacity: 0.25;
-    }
+  display: block;
 
-    25% {
-        opacity: 0.65;
-    }
+  object-fit: contain;
 
-    50% {
-        opacity: 1;
-    }
-
-    75% {
-        opacity: 0.55;
-    }
-
-    100% {
-        opacity: 0.25;
-    }
+  z-index: 2;
 }
 
+/* ================================
+   INTERNAL WAVE
+   ================================ */
 
-/* =========================================
-   CONTROLLER GLOW
-   ========================================= */
+/*
+   The wave is INSIDE the controller container.
+   It does NOT cover the rest of the screen.
+*/
 
-@keyframes v8xx-glow {
+#controller::after,
+.controller::after {
+  content: "";
 
-    0% {
-        filter:
-            drop-shadow(0 0 5px rgba(0, 100, 255, 0.6))
-            drop-shadow(0 0 14px rgba(0, 80, 255, 0.3));
-    }
+  position: absolute;
 
-    50% {
-        filter:
-            drop-shadow(0 0 10px rgba(0, 170, 255, 0.95))
-            drop-shadow(0 0 28px rgba(0, 100, 255, 0.55));
-    }
+  width: 180%;
+  height: 35%;
 
-    100% {
-        filter:
-            drop-shadow(0 0 5px rgba(0, 100, 255, 0.6))
-            drop-shadow(0 0 14px rgba(0, 80, 255, 0.3));
-    }
+  left: -40%;
+  top: 32%;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 255, 0) 15%,
+      rgba(0, 255, 255, 0.15) 30%,
+      rgba(0, 255, 255, 0.8) 50%,
+      rgba(0, 255, 255, 0.15) 70%,
+      rgba(0, 255, 255, 0) 85%,
+      transparent 100%
+    );
+
+  filter: blur(8px);
+
+  transform: rotate(-8deg);
+
+  animation: controllerWave 2.8s linear infinite;
 }
 
+/* ================================
+   WAVE MOVEMENT
+   ================================ */
 
-/* =========================================
-   KEEP GAMEPADVIEWER INPUT WORKING
-   ========================================= */
+@keyframes controllerWave {
+  0% {
+    transform:
+      translateX(-55%)
+      rotate(-8deg);
+  }
 
-#gamepad-0 > * {
-    position: relative;
-    z-index: 20;
+  100% {
+    transform:
+      translateX(55%)
+      rotate(-8deg);
+  }
+}
+
+/* ================================
+   V8XX GLOW
+   ================================ */
+
+#controller .v8xx,
+.controller .v8xx {
+  position: relative;
+  z-index: 10;
+
+  text-align: center;
+
+  color: white;
+
+  text-shadow:
+    0 0 5px #fff,
+    0 0 15px rgba(0, 255, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+/* ================================
+   KEEP CONTROLLER CENTERED
+   ================================ */
+
+@media (max-width: 900px) {
+  #controller,
+  .controller {
+    width: 94vw;
+    height: 70vh;
+  }
+}
+
+@media (max-height: 600px) {
+  #controller,
+  .controller {
+    width: 85vw;
+    height: 85vh;
+  }
 }
