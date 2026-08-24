@@ -1,30 +1,218 @@
-/* V8XX Xbox One Test Skin */
+/* =========================================================
+   V8XX Xbox One Skin
+   Autonomous Energy Wave
+   No controller input required
+   ========================================================= */
 
+
+/* Keep the GamepadViewer controller visible */
 .gamepad {
     opacity: 1 !important;
 }
 
-/* Controller body glow */
-.controller {
-    filter: drop-shadow(0 0 12px #008cff) !important;
+
+/* =========================================================
+   CONTROLLER
+   ========================================================= */
+
+.controller.xbox {
+    position: relative !important;
+
+    /* Permanent subtle V8XX glow */
+    filter:
+        drop-shadow(0 0 5px rgba(0, 110, 255, .30))
+        drop-shadow(0 0 14px rgba(0, 80, 255, .15)) !important;
 }
 
-/* Buttons */
-.button.pressed {
-    filter: drop-shadow(0 0 20px #00aaff) !important;
+
+/* =========================================================
+   AUTONOMOUS BLUE ENERGY WAVE
+   This animation runs continuously.
+   It does NOT depend on .pressed.
+   ========================================================= */
+
+.controller.xbox::after {
+    content: "";
+
+    position: absolute;
+
+    top: -30%;
+    left: -35%;
+
+    width: 22%;
+    height: 160%;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent 25%,
+            rgba(0, 100, 255, .08) 38%,
+            rgba(0, 150, 255, .30) 46%,
+            rgba(50, 210, 255, .85) 50%,
+            rgba(0, 150, 255, .30) 54%,
+            rgba(0, 100, 255, .08) 62%,
+            transparent 75%
+        );
+
+    filter:
+        blur(12px)
+        drop-shadow(0 0 8px rgba(0, 150, 255, .7))
+        drop-shadow(0 0 22px rgba(0, 100, 255, .45));
+
+    opacity: 0;
+
+    transform:
+        skewX(-12deg)
+        translateX(-120%);
+
+    animation:
+        v8xx-energy-wave 7s ease-in-out infinite;
 }
 
-/* Triggers */
-.trigger.pressed {
-    filter: drop-shadow(0 0 20px #00aaff) !important;
+
+/* =========================================================
+   SMOOTH WAVE
+   ========================================================= */
+
+@keyframes v8xx-energy-wave {
+
+    0% {
+        transform:
+            skewX(-12deg)
+            translateX(-120%);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .15;
+    }
+
+    30% {
+        opacity: .55;
+    }
+
+    45% {
+        opacity: .85;
+    }
+
+    55% {
+        opacity: .70;
+    }
+
+    70% {
+        opacity: .30;
+    }
+
+    82% {
+        opacity: 0;
+    }
+
+    100% {
+        transform:
+            skewX(-12deg)
+            translateX(600%);
+
+        opacity: 0;
+    }
 }
 
-/* Analog sticks */
-.stick.pressed {
-    filter: drop-shadow(0 0 20px #00aaff) !important;
+
+/* =========================================================
+   SECONDARY SOFT GLOW
+   ========================================================= */
+
+.controller.xbox::before {
+    content: "";
+
+    position: absolute;
+
+    top: -25%;
+    left: -45%;
+
+    width: 35%;
+    height: 150%;
+
+    pointer-events: none;
+
+    z-index: 998;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(0, 110, 255, .05),
+            rgba(0, 170, 255, .20),
+            rgba(0, 110, 255, .05),
+            transparent
+        );
+
+    filter: blur(25px);
+
+    opacity: 0;
+
+    transform:
+        skewX(-12deg)
+        translateX(-120%);
+
+    animation:
+        v8xx-soft-wave 7s ease-in-out infinite;
 }
 
-/* D-pad */
+
+/* =========================================================
+   SOFT SECONDARY WAVE
+   ========================================================= */
+
+@keyframes v8xx-soft-wave {
+
+    0% {
+        transform:
+            skewX(-12deg)
+            translateX(-120%);
+
+        opacity: 0;
+    }
+
+    25% {
+        opacity: .15;
+    }
+
+    45% {
+        opacity: .30;
+    }
+
+    60% {
+        opacity: .15;
+    }
+
+    80% {
+        opacity: 0;
+    }
+
+    100% {
+        transform:
+            skewX(-12deg)
+            translateX(600%);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   REMOVE OLD BUTTON REACTIONS
+   ========================================================= */
+
+.button.pressed,
+.trigger.pressed,
+.stick.pressed,
 .dpad.pressed {
-    filter: drop-shadow(0 0 20px #00aaff) !important;
+    filter: none !important;
+    box-shadow: none !important;
 }
