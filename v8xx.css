@@ -1,7 +1,8 @@
-/* ================================
-   V8XX CONTROLLER
-   Centered + Internal Wave Effect
-   ================================ */
+/* =========================================
+   V8XX — CENTERED CONTROLLER
+   ANONYMOUS / AUTONOMOUS WAVE
+   NO CONTROLLER INPUT REQUIRED
+   ========================================= */
 
 * {
   box-sizing: border-box;
@@ -22,13 +23,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  font-family: Arial, sans-serif;
 }
 
-/* ================================
-   CONTROLLER CONTAINER
-   ================================ */
+/* =========================================
+   CONTROLLER
+   ========================================= */
 
 #controller,
 .controller {
@@ -37,134 +36,164 @@ body {
   width: min(850px, 90vw);
   height: min(520px, 75vh);
 
-  margin: 0 auto;
-
   display: flex;
   justify-content: center;
   align-items: center;
 
+  margin: 0;
+  padding: 0;
+
   overflow: hidden;
 
+  /* Keeps everything centered */
   transform: none;
 }
 
-/* ================================
+/* =========================================
    CONTROLLER IMAGE / SVG
-   ================================ */
+   ========================================= */
 
 #controller svg,
 .controller svg,
 #controller img,
 .controller img {
-  position: relative;
-
   width: 100%;
   height: 100%;
 
-  display: block;
-
   object-fit: contain;
 
-  z-index: 2;
+  display: block;
+
+  position: relative;
+
+  z-index: 5;
 }
 
-/* ================================
-   INTERNAL WAVE
-   ================================ */
+/* =========================================
+   AUTONOMOUS WAVE
+   ========================================= */
 
 /*
-   The wave is INSIDE the controller container.
-   It does NOT cover the rest of the screen.
+   This animation runs automatically.
+   It does NOT read controller input.
 */
 
-#controller::after,
-.controller::after {
-  content: "";
-
+#controller .wave,
+.controller .wave {
   position: absolute;
 
-  width: 180%;
-  height: 35%;
+  left: -60%;
+  top: 20%;
 
-  left: -40%;
-  top: 32%;
-
-  z-index: 3;
+  width: 220%;
+  height: 60%;
 
   pointer-events: none;
+
+  z-index: 4;
 
   background:
     linear-gradient(
       90deg,
+
       transparent 0%,
-      rgba(0, 255, 255, 0) 15%,
-      rgba(0, 255, 255, 0.15) 30%,
-      rgba(0, 255, 255, 0.8) 50%,
-      rgba(0, 255, 255, 0.15) 70%,
-      rgba(0, 255, 255, 0) 85%,
+
+      rgba(0, 255, 255, 0) 25%,
+
+      rgba(0, 255, 255, 0.12) 38%,
+
+      rgba(0, 255, 255, 0.75) 48%,
+
+      rgba(255, 255, 255, 0.95) 50%,
+
+      rgba(0, 255, 255, 0.75) 52%,
+
+      rgba(0, 255, 255, 0.12) 62%,
+
+      rgba(0, 255, 255, 0) 75%,
+
       transparent 100%
     );
 
-  filter: blur(8px);
+  filter: blur(10px);
 
   transform: rotate(-8deg);
 
-  animation: controllerWave 2.8s linear infinite;
+  animation:
+    anonymousWave
+    3.5s
+    linear
+    infinite;
 }
 
-/* ================================
-   WAVE MOVEMENT
-   ================================ */
+/* =========================================
+   AUTONOMOUS MOVEMENT
+   ========================================= */
 
-@keyframes controllerWave {
+@keyframes anonymousWave {
+
   0% {
     transform:
-      translateX(-55%)
+      translateX(-30%)
+      rotate(-8deg);
+  }
+
+  50% {
+    transform:
+      translateX(30%)
       rotate(-8deg);
   }
 
   100% {
     transform:
-      translateX(55%)
+      translateX(130%)
       rotate(-8deg);
   }
 }
 
-/* ================================
-   V8XX GLOW
-   ================================ */
+/* =========================================
+   V8XX TEXT
+   ========================================= */
 
-#controller .v8xx,
-.controller .v8xx {
-  position: relative;
+.v8xx {
+  position: absolute;
+
   z-index: 10;
-
-  text-align: center;
 
   color: white;
 
+  font-weight: bold;
+
+  letter-spacing: 5px;
+
   text-shadow:
-    0 0 5px #fff,
-    0 0 15px rgba(0, 255, 255, 0.8),
-    0 0 30px rgba(0, 255, 255, 0.5);
+    0 0 5px white,
+    0 0 15px cyan,
+    0 0 30px cyan;
+
+  pointer-events: none;
 }
 
-/* ================================
-   KEEP CONTROLLER CENTERED
-   ================================ */
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 
 @media (max-width: 900px) {
+
   #controller,
   .controller {
     width: 94vw;
     height: 70vh;
   }
+
 }
 
 @media (max-height: 600px) {
+
   #controller,
   .controller {
     width: 85vw;
     height: 85vh;
   }
+
 }
