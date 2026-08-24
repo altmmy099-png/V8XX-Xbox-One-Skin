@@ -1,335 +1,178 @@
-/* =========================================================
-   V8XX XBOX ONE SKIN
-   Autonomous blue energy wave
-   No button/stick input required
-   ========================================================= */
+/* =========================================
+   V8XX Xbox One Skin
+   Autonomous Wave Animation
+   ========================================= */
 
-
-/* =========================================================
-   MAIN CONTROLLER
-   ========================================================= */
-
-.controller.xbox {
-    width: 750px !important;
-    height: 630px !important;
-
-    margin-left: -375px !important;
-    margin-top: -285px !important;
-
-    position: relative !important;
-
-    background:
-        url("v8xx-controller.png")
-        no-repeat
-        center center !important;
-
-    background-size: 750px 630px !important;
-
-    overflow: hidden !important;
+#gamepad-0 {
+    position: relative;
+    width: 1200px;
+    height: 760px;
 }
 
-
-/* Keep controller centered in half mode */
-
-.controller.xbox.half {
-    margin-top: -315px !important;
-}
-
-
-/* =========================================================
-   HIDE CLASSIC SKIN ARTWORK
-   ========================================================= */
-
-.controller.xbox > div {
-    background-image: none !important;
-}
-
-
-/* =========================================================
-   AUTONOMOUS ENERGY WAVE
-   ========================================================= */
-
-.controller.xbox::after {
-
+/* Controller artwork */
+#gamepad-0::before {
     content: "";
-
     position: absolute;
+    inset: 0;
 
-    top: -25%;
-    left: -35%;
+    background-image: url("./v8xx-controller.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
 
-    width: 24%;
-    height: 150%;
-
-    z-index: 50;
-
+    z-index: 1;
     pointer-events: none;
-
-    background:
-        linear-gradient(
-            90deg,
-
-            transparent 0%,
-
-            rgba(0, 90, 255, 0) 20%,
-
-            rgba(0, 110, 255, .08) 35%,
-
-            rgba(0, 150, 255, .25) 44%,
-
-            rgba(0, 200, 255, .70) 49%,
-
-            rgba(80, 220, 255, .90) 50%,
-
-            rgba(0, 180, 255, .60) 51%,
-
-            rgba(0, 110, 255, .20) 58%,
-
-            transparent 75%
-        );
 
     filter:
-        blur(16px)
-        drop-shadow(0 0 10px rgba(0,130,255,.7))
-        drop-shadow(0 0 25px rgba(0,80,255,.45));
-
-    opacity: 0;
-
-    transform:
-        skewX(-12deg)
-        translateX(-120%);
-
-    animation:
-        V8XXWave 7s ease-in-out infinite;
+        drop-shadow(0 0 6px rgba(0, 120, 255, 0.8))
+        drop-shadow(0 0 18px rgba(0, 80, 255, 0.5));
 }
 
 
-/* =========================================================
-   SOFT SECONDARY ENERGY
-   ========================================================= */
+/* =========================================
+   AUTONOMOUS V8XX ENERGY WAVE
+   No .pressed
+   No :active
+   No controller input
+   ========================================= */
 
-.controller.xbox::before {
-
+#gamepad-0::after {
     content: "";
-
     position: absolute;
+    inset: 0;
 
-    top: -20%;
-    left: -45%;
-
-    width: 35%;
-    height: 140%;
-
-    z-index: 49;
-
+    z-index: 5;
     pointer-events: none;
 
     background:
         linear-gradient(
-            90deg,
-            transparent,
-            rgba(0,90,255,.04),
-            rgba(0,160,255,.15),
-            rgba(0,120,255,.08),
-            transparent
+            110deg,
+            transparent 0%,
+            transparent 30%,
+
+            rgba(0, 90, 255, 0) 38%,
+
+            rgba(0, 130, 255, 0.25) 43%,
+
+            rgba(40, 190, 255, 0.95) 48%,
+
+            rgba(0, 110, 255, 0.35) 53%,
+
+            rgba(0, 50, 255, 0) 60%,
+
+            transparent 68%
         );
 
-    filter: blur(28px);
+    background-size: 300% 300%;
+    background-position: 140% 50%;
 
-    opacity: 0;
+    /*
+       Keeps the energy inside the controller artwork.
+    */
+    -webkit-mask-image: url("./v8xx-controller.png");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
 
-    transform:
-        skewX(-12deg)
-        translateX(-100%);
+    mask-image: url("./v8xx-controller.png");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+
+    mix-blend-mode: screen;
+
+    filter:
+        blur(0.5px)
+        drop-shadow(0 0 8px rgba(0, 150, 255, 1));
 
     animation:
-        V8XXSoftWave 7s ease-in-out infinite;
+        v8xx-wave 3s linear infinite,
+        v8xx-pulse 1.8s ease-in-out infinite;
 }
 
 
-/* =========================================================
-   MAIN WAVE ANIMATION
-   ========================================================= */
+/* =========================================
+   WAVE MOVEMENT
+   ========================================= */
 
-@keyframes V8XXWave {
+@keyframes v8xx-wave {
 
     0% {
-        transform:
-            skewX(-12deg)
-            translateX(-120%);
-
-        opacity: 0;
+        background-position: 140% 50%;
     }
 
-    12% {
-        opacity: .05;
+    100% {
+        background-position: -40% 50%;
+    }
+
+}
+
+
+/* =========================================
+   CONTINUOUS ENERGY PULSE
+   ========================================= */
+
+@keyframes v8xx-pulse {
+
+    0% {
+        opacity: 0.25;
     }
 
     25% {
-        opacity: .35;
-    }
-
-    40% {
-        opacity: .75;
+        opacity: 0.65;
     }
 
     50% {
-        opacity: .85;
+        opacity: 1;
     }
 
-    60% {
-        opacity: .55;
-    }
-
-    72% {
-        opacity: .15;
-    }
-
-    82% {
-        opacity: 0;
+    75% {
+        opacity: 0.55;
     }
 
     100% {
-        transform:
-            skewX(-12deg)
-            translateX(550%);
-
-        opacity: 0;
+        opacity: 0.25;
     }
+
 }
 
 
-/* =========================================================
-   SOFT WAVE ANIMATION
-   ========================================================= */
+/* =========================================
+   CONTROLLER GLOW
+   ========================================= */
 
-@keyframes V8XXSoftWave {
-
-    0% {
-        transform:
-            skewX(-12deg)
-            translateX(-120%);
-
-        opacity: 0;
-    }
-
-    25% {
-        opacity: .15;
-    }
-
-    45% {
-        opacity: .28;
-    }
-
-    60% {
-        opacity: .18;
-    }
-
-    80% {
-        opacity: 0;
-    }
-
-    100% {
-        transform:
-            skewX(-12deg)
-            translateX(550%);
-
-        opacity: 0;
-    }
+#gamepad-0::before {
+    animation: v8xx-controller-glow 2.5s ease-in-out infinite;
 }
 
-
-/* =========================================================
-   SUBTLE BLUE AMBIENT GLOW
-   ========================================================= */
-
-.controller.xbox {
-
-    animation:
-        V8XXGlow 4s ease-in-out infinite;
-}
-
-
-@keyframes V8XXGlow {
+@keyframes v8xx-controller-glow {
 
     0% {
         filter:
-            brightness(.96)
-            drop-shadow(
-                0 0 4px
-                rgba(0,90,255,.20)
-            );
+            drop-shadow(0 0 5px rgba(0, 100, 255, 0.6))
+            drop-shadow(0 0 14px rgba(0, 80, 255, 0.3));
     }
 
     50% {
         filter:
-            brightness(1.02)
-            drop-shadow(
-                0 0 9px
-                rgba(0,120,255,.38)
-            );
+            drop-shadow(0 0 10px rgba(0, 170, 255, 0.95))
+            drop-shadow(0 0 28px rgba(0, 100, 255, 0.55));
     }
 
     100% {
         filter:
-            brightness(.96)
-            drop-shadow(
-                0 0 4px
-                rgba(0,90,255,.20)
-            );
+            drop-shadow(0 0 5px rgba(0, 100, 255, 0.6))
+            drop-shadow(0 0 14px rgba(0, 80, 255, 0.3));
     }
+
 }
 
 
-/* =========================================================
-   KEEP INPUT ELEMENTS INVISIBLE
-   INPUT STILL WORKS — THEY JUST DON'T CHANGE THE ART
-   ========================================================= */
+/* =========================================
+   KEEP GAMEPADVIEWER CONTROLS FUNCTIONAL
+   ========================================= */
 
-.controller.xbox .button,
-.controller.xbox .stick,
-.controller.xbox .face,
-.controller.xbox .bumper,
-.controller.xbox .trigger,
-.controller.xbox .trigger-button,
-.controller.xbox .back,
-.controller.xbox .start,
-.controller.xbox .wheel,
-.controller.xbox .meta {
-
-    background-image: none !important;
-}
-
-
-/* Don't show pressed overlays */
-
-.controller.xbox .button.pressed,
-.controller.xbox .stick.pressed,
-.controller.xbox .face.pressed,
-.controller.xbox .bumper.pressed,
-.controller.xbox .trigger.pressed,
-.controller.xbox .trigger-button.pressed,
-.controller.xbox .back.pressed,
-.controller.xbox .start.pressed {
-
-    filter: none !important;
-
-    box-shadow: none !important;
-
-    transform: none !important;
-}
-
-
-/* =========================================================
-   DISCONNECTED STATE
-   ========================================================= */
-
-.controller.xbox.disconnected {
-
-    background:
-        url("v8xx-controller.png")
-        no-repeat
-        center center !important;
-
-    background-size: 750px 630px !important;
+#gamepad-0 > * {
+    position: relative;
+    z-index: 20;
 }
